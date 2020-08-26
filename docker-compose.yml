@@ -1,0 +1,89 @@
+version: "3.7"
+
+networks:
+  sms-network:
+
+services:
+
+  influxdb:
+    image: quay.io/influxdb/influxdb:2.0.0-beta
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - 9999:9999
+    networks:
+      - sms-network
+    volumes:
+      - ~/docker_sms_volumes/influxdb:/root/.influxdbv2
+
+  node-red:
+    #image: nodered/node-red:latest
+    build:
+        context: ./nodered
+        dockerfile: Dockerfile
+    container_name: nodered
+    restart: unless-stopped
+    depends_on:
+      - influxdb
+    ports:
+      - 8880:1880
+    networks:
+      - sms-network
+    volumes:
+    #  - ~/docker_sms_volumes/nodered:/data
+      - ./nodered:/data
+    environment:
+      - TZ=Australia/Sydney
+    #  - FLOWS=my_flows.json
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - sms-network
+    volumes:
+      - ~/docker_sms_volumes/grafana:/var/lib/grafana
+      - ./grafana:/etc/grafana/provisioning
+    environment:
+      - GF_DATABASE_TYPE=mysql
+      - GF_DATABASE_HOST=mariadb:3306
+      - GF_DATABASE_NAME=grafana
+      - GF_DATABASE_USER=grafana
+      - GF_DATABASE_PASSWORD=password
+      - GF_SMTP_ENABLED=false
+      - GF_SMTP_HOST=smtp:25
+      - GF_SMTP_FROM_ADDRESS=no-reply@grafana.internal
+      - GF_INSTALL_PLUGINS=fetzerch-sunandmoon-datasource
+      - GF_PATH_PROVISIONING=/etc/grafana/provisioning
+
+  mysql:
+    image: mariadb
+    container_name: mariadb
+    networks:
+      - sms-network
+    volumes:
+      - ~/docker_sms_volumes/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=grafana
+      - MYSQL_USER=grafana
+      - MYSQL_PASSWORD=password
+    restart: unless-stopped
+
+#  smtp:
+#    image: panubo/postfix:latest
+#    container_name: smtp
+#    hostname: smtp
+#    networks:
+#      - sms-network
+#    ports:
+#      - 587:587
+#    environment:
+#      - MAILNAME=localhost
+#      - SMTPD_USERS=no-reply:password
+#    restart: unless-stopped
