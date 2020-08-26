@@ -35,10 +35,10 @@ Set InfluxDB Token and Organisation on InfluxDB flows.
 
 Deploy changes.
 
-# Grafana
+### Grafana
 Access at http://localhost:3000/ and login with username: `admin`, password: `admin`.
 
-### Configure InfluxDB data source
+#### Configure InfluxDB data source
 Change query language to: `Flux`, enter organisaiton name and token.
 
 ## TODO
