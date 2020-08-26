@@ -22,4 +22,4 @@ RUN npm install node-red-contrib-influxdb
 RUN npm install node-red-contrib-modbus
 RUN npm install node-red-contrib-stackhero-influxdb-v2
 RUN npm install node-red-contrib-sun-position
-RUN npm install git+https://github.com/jsloane/node-red-solaredge-modbus-client.git
+RUN npm install git://github.com/jsloane/node-red-solaredge-modbus-client.git#se-power-meter
