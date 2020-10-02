@@ -37,7 +37,7 @@ services:
     #  - FLOWS=my_flows.json
 
   grafana:
-    image: grafana/grafana:7.1.1
+    image: grafana/grafana:latest
     container_name: grafana
     depends_on:
       - mysql
