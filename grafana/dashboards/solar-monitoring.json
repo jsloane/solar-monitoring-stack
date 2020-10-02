@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1598407350241,
+  "iteration": 1601637609473,
   "links": [],
   "panels": [
     {
@@ -84,8 +84,11 @@
       "linewidth": 1,
       "maxDataPoints": 10000,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -227,6 +230,104 @@
           "custom": {
             "align": null
           },
+          "mappings": [],
+          "max": 6000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              },
+              {
+                "color": "#EAB839",
+                "value": 5000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "id": 5,
+      "maxDataPoints": 10000,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: -1m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Power_computed\")",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Power Generation",
+      "transformations": [],
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
           "mappings": [
             {
               "from": "",
@@ -332,7 +433,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 12,
+        "x": 16,
         "y": 0
       },
       "id": 13,
@@ -351,7 +452,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -398,104 +499,6 @@
     },
     {
       "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "max": 6000,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "super-light-green",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
-              },
-              {
-                "color": "#EAB839",
-                "value": 5000
-              }
-            ]
-          },
-          "unit": "watt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 16,
-        "y": 0
-      },
-      "id": 5,
-      "maxDataPoints": 10000,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false
-      },
-      "pluginVersion": "7.1.1",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: -1m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Power_computed\")",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Power Generation",
-      "transformations": [],
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": null,
       "description": "TODO Pending https://github.com/influxdata/flux/issues/1549",
       "fieldConfig": {
         "defaults": {
@@ -539,7 +542,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -627,7 +630,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 12,
+        "x": 16,
         "y": 4
       },
       "id": 10,
@@ -646,7 +649,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -687,7 +690,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Inverter heatsink temperature",
+      "title": "Inverter temperature",
       "transformations": [],
       "transparent": true,
       "type": "stat"
@@ -735,7 +738,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -789,41 +792,35 @@
           "custom": {
             "align": null
           },
-          "decimals": 2,
           "mappings": [],
+          "max": 5000,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "super-light-green",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": -1
-              },
-              {
                 "color": "green",
-                "value": 0
+                "value": 1
               }
             ]
           },
-          "unit": "currencyUSD"
+          "unit": "watt"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 6,
         "w": 4,
-        "x": 16,
+        "x": 12,
         "y": 6
       },
-      "id": 25,
+      "id": 34,
       "maxDataPoints": 10000,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -832,9 +829,10 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -853,8 +851,8 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "import \"experimental\"\r\nimport \"date\"\r\nOffsetStart = experimental.addDuration(d: -10h, to: date.truncate(t: now(), unit: 1d))\r\n\r\nfrom(bucket:\"data-realtime\")\r\n|>range(start: OffsetStart, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Energy_WH_computed\")\r\n|>spread()\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value: (r._value / 1000.0) * (${tariffexport} / 100.0) - (${dailycost} / 100.0)\r\n}))",
-          "refId": "B",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._measurement == \"sunspec_power_meter\")\r\n|>filter(fn:(r) => r._field == \"M_AC_Power_A\")\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value:\r\n      if r._value <= 0 then 0\r\n      else int(v: r._value)\r\n}))",
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
@@ -875,10 +873,10 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Today's cost/revenue",
+      "title": "Export",
       "transformations": [],
       "transparent": true,
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "datasource": null,
@@ -926,7 +924,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 12,
+        "x": 16,
         "y": 8
       },
       "id": 18,
@@ -945,7 +943,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -1034,7 +1032,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -1133,8 +1131,11 @@
       "linewidth": 1,
       "maxDataPoints": 10000,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1251,7 +1252,8 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null
+            "align": null,
+            "filterable": false
           },
           "mappings": [
             {
@@ -1373,7 +1375,7 @@
           }
         ]
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "targets": [
         {
           "groupBy": [
@@ -1563,8 +1565,11 @@
       "linewidth": 1,
       "maxDataPoints": 10000,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1620,14 +1625,7 @@
         "sort": 0,
         "value_type": "individual"
       },
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {
-            "byField": "I_Status"
-          }
-        }
-      ],
+      "transformations": [],
       "transparent": true,
       "type": "graph",
       "xaxis": {
@@ -1712,7 +1710,7 @@
       "legend": {
         "alignAsTable": false,
         "avg": false,
-        "current": false,
+        "current": true,
         "hideEmpty": false,
         "hideZero": false,
         "max": true,
@@ -1726,8 +1724,11 @@
       "linewidth": 1,
       "maxDataPoints": 10000,
       "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1813,9 +1814,7 @@
         {
           "colorMode": "warning",
           "fill": true,
-          "fillColor": "rgba(51, 162, 229, 0.2)",
           "line": true,
-          "lineColor": "rgba(31, 96, 196, 0.6)",
           "op": "gt",
           "value": 250,
           "yaxis": "left"
@@ -1932,8 +1931,11 @@
       "linewidth": 1,
       "maxDataPoints": 10000,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2057,8 +2059,11 @@
       "linewidth": 1,
       "maxDataPoints": 10000,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2186,8 +2191,11 @@
       "linewidth": 1,
       "maxDataPoints": 10000,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.2.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2275,6 +2283,105 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": -1
+              },
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 36
+      },
+      "id": 25,
+      "maxDataPoints": 10000,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "import \"experimental\"\r\nimport \"date\"\r\nOffsetStart = experimental.addDuration(d: -10h, to: date.truncate(t: now(), unit: 1d))\r\n\r\nfrom(bucket:\"data-realtime\")\r\n|>range(start: OffsetStart, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Energy_WH_computed\")\r\n|>spread()\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value: (r._value / 1000.0) * (${tariffexport} / 100.0) - (${dailycost} / 100.0)\r\n}))",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Today's cost/revenue",
+      "transformations": [],
+      "transparent": true,
+      "type": "stat"
     }
   ],
   "refresh": "10s",
@@ -2365,5 +2472,5 @@
   "timezone": "browser",
   "title": "Solar Monitoring Realtime",
   "uid": "6Lr7NE7Mk",
-  "version": 209
+  "version": 231
 }
