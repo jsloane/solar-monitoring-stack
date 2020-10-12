@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1601637609473,
+  "iteration": 1602466219308,
   "links": [],
   "panels": [
     {
@@ -60,7 +60,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 11,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 0
@@ -272,7 +272,7 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": true
       },
       "pluginVersion": "7.2.0",
       "targets": [
@@ -293,7 +293,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: -1m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Power_computed\")",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: -10m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Power_computed\")",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -328,129 +328,45 @@
           "custom": {
             "align": null
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 0,
-              "text": "Off",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "text": "Sleeping",
-              "to": "",
-              "type": 1,
-              "value": "2"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Grid Monitoring",
-              "to": "",
-              "type": 1,
-              "value": "3"
-            },
-            {
-              "from": "",
-              "id": 3,
-              "text": "Producing",
-              "to": "",
-              "type": 1,
-              "value": "4"
-            },
-            {
-              "from": "",
-              "id": 4,
-              "text": "Throttled",
-              "to": "",
-              "type": 1,
-              "value": "5"
-            },
-            {
-              "from": "",
-              "id": 5,
-              "text": "Shutting down",
-              "to": "",
-              "type": 1,
-              "value": "6"
-            },
-            {
-              "from": "",
-              "id": 6,
-              "text": "Fault",
-              "to": "",
-              "type": 1,
-              "value": "7"
-            },
-            {
-              "from": "",
-              "id": 7,
-              "text": "Maintenance",
-              "to": "",
-              "type": 1,
-              "value": "8"
-            }
-          ],
+          "mappings": [],
+          "max": 5000,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "super-light-green",
                 "value": null
               },
               {
-                "color": "super-light-green",
+                "color": "green",
                 "value": 1
-              },
-              {
-                "color": "dark-green",
-                "value": 4
-              },
-              {
-                "color": "yellow",
-                "value": 5
-              },
-              {
-                "color": "super-light-green",
-                "value": 6
-              },
-              {
-                "color": "red",
-                "value": 7
-              },
-              {
-                "color": "orange",
-                "value": 8
               }
             ]
-          }
+          },
+          "unit": "watt"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 6,
         "w": 4,
         "x": 16,
         "y": 0
       },
-      "id": 13,
+      "id": 34,
       "maxDataPoints": 10000,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "last"
           ],
-          "fields": "/^I_Status$/",
+          "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false
       },
       "pluginVersion": "7.2.0",
       "targets": [
@@ -471,7 +387,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"data-realtime\")\r\n|>range(start: -1m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_Status\")",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: -10m, stop: now())\r\n|>filter(fn:(r) => r._measurement == \"sunspec_power_meter\")\r\n|>filter(fn:(r) => r._field == \"M_AC_Power_A\")\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value:\r\n      if r._value <= 0 then 0\r\n      else int(v: r._value)\r\n}))",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -493,9 +409,10 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Inverter Status",
+      "title": "Export",
+      "transformations": [],
       "transparent": true,
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "datasource": null,
@@ -596,113 +513,6 @@
           "custom": {
             "align": null
           },
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 45
-              },
-              {
-                "color": "orange",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 55
-              },
-              {
-                "color": "dark-red",
-                "value": 60
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 4
-      },
-      "id": 10,
-      "maxDataPoints": 10000,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_Temp_Sink_computed\")",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Inverter temperature",
-      "transformations": [],
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -786,25 +596,16 @@
     },
     {
       "datasource": null,
-      "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
+          "custom": {},
           "mappings": [],
-          "max": 5000,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "super-light-green",
                 "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
               }
             ]
           },
@@ -818,7 +619,97 @@
         "x": 12,
         "y": 6
       },
-      "id": 34,
+      "id": 38,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "inverterPower = from(bucket:\"data-realtime\")\r\n|>range(start: -10m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Power_computed\")\r\n|> drop(columns:[\"_start\", \"_stop\", \"_measurement\", \"position\", \"_field\"])\r\n\r\nmeterPower = from(bucket:\"data-realtime\")\r\n|>range(start: -10m, stop: now())\r\n|>filter(fn:(r) => r._field == \"M_AC_Power_A\")\r\n|> drop(columns:[\"_start\", \"_stop\", \"_measurement\", \"position\", \"_field\"])\r\n\r\nconsumption = join(tables: {inverterPower: inverterPower, meterPower: meterPower}, on: [\"_time\"])\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value: (r._value_inverterPower - r._value_meterPower)\r\n}))\r\n|> yield(name: \"consumption_power\")",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Consumption",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "super-light-yellow",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 16,
+        "y": 6
+      },
+      "id": 36,
       "maxDataPoints": 10000,
       "options": {
         "orientation": "auto",
@@ -851,7 +742,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._measurement == \"sunspec_power_meter\")\r\n|>filter(fn:(r) => r._field == \"M_AC_Power_A\")\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value:\r\n      if r._value <= 0 then 0\r\n      else int(v: r._value)\r\n}))",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: -10m, stop: now())\r\n|>filter(fn:(r) => r._measurement == \"sunspec_power_meter\")\r\n|>filter(fn:(r) => r._field == \"M_AC_Power_A\")\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value:\r\n      if r._value >= 0 then 0\r\n      else int(v: r._value * -1.0)\r\n}))",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -873,210 +764,10 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Export",
+      "title": "Import",
       "transformations": [],
       "transparent": true,
       "type": "gauge"
-    },
-    {
-      "datasource": null,
-      "description": "TODO use calculation in flux\n\nhttps://www.influxdata.com/blog/influxdb-how-to-do-joins-math-across-measurements/",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [
-            {
-              "from": "",
-              "id": 0,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "super-light-green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 1
-              },
-              {
-                "color": "yellow",
-                "value": 95
-              },
-              {
-                "color": "green",
-                "value": 98
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 8
-      },
-      "id": 18,
-      "maxDataPoints": 10000,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_efficiency_computed\")",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Inverter Efficiency",
-      "transformations": [],
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              }
-            ]
-          },
-          "unit": "watth"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 8
-      },
-      "id": 24,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "import \"experimental\"\r\nimport \"date\"\r\nOffsetStart = experimental.addDuration(d: -10h, to: date.truncate(t: now(), unit: 1d))\r\n\r\nfrom(bucket:\"data-realtime\")\r\n|>range(start: OffsetStart, stop: now())\r\n|>filter(fn:(r) => r._field == \"M_Imported_A_computed\")\r\n|>spread()",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Today's Grid Import",
-      "transformations": [],
-      "transparent": true,
-      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -1114,7 +805,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 8
       },
       "hiddenSeries": false,
       "id": 8,
@@ -1248,132 +939,46 @@
     },
     {
       "datasource": null,
-      "description": "TODO group by in table...",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null,
-            "filterable": false
+            "align": null
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 0,
-              "text": "Off",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "text": "Sleeping",
-              "to": "",
-              "type": 1,
-              "value": "2"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Grid Monitoring",
-              "to": "",
-              "type": 1,
-              "value": "3"
-            },
-            {
-              "from": "",
-              "id": 3,
-              "text": "Producing",
-              "to": "",
-              "type": 1,
-              "value": "4"
-            },
-            {
-              "from": "",
-              "id": 4,
-              "text": "Throttled",
-              "to": "",
-              "type": 1,
-              "value": "5"
-            },
-            {
-              "from": "",
-              "id": 5,
-              "text": "Shutting down",
-              "to": "",
-              "type": 1,
-              "value": "6"
-            },
-            {
-              "from": "",
-              "id": 6,
-              "text": "Fault",
-              "to": "",
-              "type": 1,
-              "value": "7"
-            },
-            {
-              "from": "",
-              "id": 7,
-              "text": "Maintenance",
-              "to": "",
-              "type": 1,
-              "value": "8"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "super-light-green",
-                "value": 1
-              },
-              {
-                "color": "dark-green",
-                "value": 4
-              },
-              {
-                "color": "yellow",
-                "value": 5
-              },
-              {
-                "color": "super-light-green",
-                "value": 6
-              },
-              {
                 "color": "red",
-                "value": 7
-              },
-              {
-                "color": "orange",
-                "value": 8
+                "value": null
               }
             ]
-          }
+          },
+          "unit": "watth"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 12,
-        "y": 12
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 8
       },
-      "id": 28,
-      "maxDataPoints": 10000,
+      "id": 24,
       "options": {
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time sunspec_inverter"
-          }
-        ]
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
       "pluginVersion": "7.2.0",
       "targets": [
@@ -1394,7 +999,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_Status\")\r\n|>sort(columns: [\"_time\"], desc: true)\r\n|>unique(column: \"_value\")",
+          "query": "import \"experimental\"\r\nimport \"date\"\r\nOffsetStart = experimental.addDuration(d: -10h, to: date.truncate(t: now(), unit: 1d))\r\n\r\nfrom(bucket:\"data-realtime\")\r\n|>range(start: OffsetStart, stop: now())\r\n|>filter(fn:(r) => r._field == \"M_Imported_A_computed\")\r\n|>spread()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1416,23 +1021,12 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Recent Inverter Status Changes",
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {
-            "byField": "I_Status"
-          }
-        }
-      ],
+      "title": "Today's Grid Import",
+      "transformations": [],
       "transparent": true,
-      "type": "table"
+      "type": "stat"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": null,
       "description": "",
       "fieldConfig": {
@@ -1542,41 +1136,29 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 18,
+        "h": 4,
+        "w": 4,
+        "x": 12,
         "y": 12
       },
-      "hiddenSeries": false,
-      "id": 29,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
+      "id": 13,
       "maxDataPoints": 10000,
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^I_Status$/",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "percentage": false,
       "pluginVersion": "7.2.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "groupBy": [
@@ -1595,7 +1177,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_Status\")",
+          "query": "from(bucket: \"data-realtime\")\r\n|>range(start: -10m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_Status\")",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1615,48 +1197,229 @@
           "tags": []
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Inverter Status",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transformations": [],
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 45
+              },
+              {
+                "color": "orange",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 55
+              },
+              {
+                "color": "dark-red",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "celsius"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 12
+      },
+      "id": 10,
+      "maxDataPoints": 10000,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: -10m, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_Temp_Sink_computed\")",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Inverter temperature",
+      "transformations": [],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "TODO use calculation in flux\n\nhttps://www.influxdata.com/blog/influxdb-how-to-do-joins-math-across-measurements/",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [
+            {
+              "from": "",
+              "id": 0,
+              "text": "",
+              "to": "",
+              "type": 1
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 98
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 12
+      },
+      "id": 18,
+      "maxDataPoints": 10000,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_efficiency_computed\")",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Inverter Efficiency",
+      "transformations": [],
+      "transparent": true,
+      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -1699,10 +1462,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 16
       },
       "hiddenSeries": false,
       "id": 30,
@@ -1887,42 +1650,29 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "custom": {}
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 16
       },
       "hiddenSeries": false,
-      "id": 33,
-      "interval": "",
+      "id": 11,
       "legend": {
+        "alignAsTable": false,
         "avg": false,
         "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
         "max": false,
         "min": false,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -1961,7 +1711,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "iv = from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_AC_VoltageAB_computed\")\r\n|> drop(columns:[\"_start\", \"_stop\", \"_measurement\", \"position\", \"_field\"])\r\n\r\nmv = from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"M_AC_Voltage_AN_computed\")\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value: (r._value / 100.0)\r\n}))\r\n|> drop(columns:[\"_start\", \"_stop\", \"_measurement\", \"position\", \"_field\"])\r\n\r\nvt = join(tables: {iv: iv, mv: mv}, on: [\"_time\"])\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value: (r._value_iv - r._value_mv)\r\n}))\r\n|> yield(name: \"voltage_difference\")",
+          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_DC_Voltage_computed\")",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1985,7 +1735,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "AC Voltage difference",
+      "title": "DC Voltage",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2003,7 +1753,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "volt",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2012,7 +1762,7 @@
         },
         {
           "format": "short",
-          "label": null,
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -2039,10 +1789,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 17,
@@ -2160,29 +1910,126 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {
+            "align": null
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 0,
+              "text": "Off",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 1,
+              "text": "Sleeping",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "text": "Grid Monitoring",
+              "to": "",
+              "type": 1,
+              "value": "3"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "text": "Producing",
+              "to": "",
+              "type": 1,
+              "value": "4"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "text": "Throttled",
+              "to": "",
+              "type": 1,
+              "value": "5"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "text": "Shutting down",
+              "to": "",
+              "type": 1,
+              "value": "6"
+            },
+            {
+              "from": "",
+              "id": 6,
+              "text": "Fault",
+              "to": "",
+              "type": 1,
+              "value": "7"
+            },
+            {
+              "from": "",
+              "id": 7,
+              "text": "Maintenance",
+              "to": "",
+              "type": 1,
+              "value": "8"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "super-light-green",
+                "value": 1
+              },
+              {
+                "color": "dark-green",
+                "value": 4
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "super-light-green",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 7
+              },
+              {
+                "color": "orange",
+                "value": 8
+              }
+            ]
+          }
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 7,
+        "w": 7,
         "x": 12,
-        "y": 28
+        "y": 24
       },
       "hiddenSeries": false,
-      "id": 11,
+      "id": 29,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
         "max": false,
         "min": false,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -2221,7 +2068,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket:\"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_DC_Voltage_computed\")",
+          "query": "from(bucket: \"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_Status\")",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2245,7 +2092,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "DC Voltage",
+      "title": "Inverter Status",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2263,7 +2110,7 @@
       },
       "yaxes": [
         {
-          "format": "volt",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2272,7 +2119,7 @@
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -2286,56 +2133,132 @@
     },
     {
       "datasource": null,
-      "description": "",
+      "description": "TODO group by in table...",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null
+            "align": null,
+            "filterable": false
           },
-          "decimals": 2,
-          "mappings": [],
+          "mappings": [
+            {
+              "from": "",
+              "id": 0,
+              "text": "Off",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 1,
+              "text": "Sleeping",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "text": "Grid Monitoring",
+              "to": "",
+              "type": 1,
+              "value": "3"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "text": "Producing",
+              "to": "",
+              "type": 1,
+              "value": "4"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "text": "Throttled",
+              "to": "",
+              "type": 1,
+              "value": "5"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "text": "Shutting down",
+              "to": "",
+              "type": 1,
+              "value": "6"
+            },
+            {
+              "from": "",
+              "id": 6,
+              "text": "Fault",
+              "to": "",
+              "type": 1,
+              "value": "7"
+            },
+            {
+              "from": "",
+              "id": 7,
+              "text": "Maintenance",
+              "to": "",
+              "type": 1,
+              "value": "8"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": -1
+                "color": "super-light-green",
+                "value": 1
               },
               {
-                "color": "green",
-                "value": 0
+                "color": "dark-green",
+                "value": 4
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "super-light-green",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 7
+              },
+              {
+                "color": "orange",
+                "value": 8
               }
             ]
-          },
-          "unit": "currencyUSD"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 4,
-        "x": 0,
-        "y": 36
+        "h": 7,
+        "w": 5,
+        "x": 19,
+        "y": 24
       },
-      "id": 25,
+      "id": 28,
       "maxDataPoints": 10000,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time sunspec_inverter"
+          }
+        ]
       },
       "pluginVersion": "7.2.0",
       "targets": [
@@ -2356,8 +2279,8 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "import \"experimental\"\r\nimport \"date\"\r\nOffsetStart = experimental.addDuration(d: -10h, to: date.truncate(t: now(), unit: 1d))\r\n\r\nfrom(bucket:\"data-realtime\")\r\n|>range(start: OffsetStart, stop: now())\r\n|>filter(fn:(r) => r._field == \"I_AC_Energy_WH_computed\")\r\n|>spread()\r\n|>map(fn: (r) => ({\r\n    r with\r\n    _value: (r._value / 1000.0) * (${tariffexport} / 100.0) - (${dailycost} / 100.0)\r\n}))",
-          "refId": "B",
+          "query": "from(bucket: \"data-realtime\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn:(r) => r._field == \"I_Status\")\r\n|>sort(columns: [\"_time\"], desc: true)\r\n|>unique(column: \"_value\")",
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
@@ -2378,10 +2301,17 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Today's cost/revenue",
-      "transformations": [],
+      "title": "Recent Inverter Status Changes",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "I_Status"
+          }
+        }
+      ],
       "transparent": true,
-      "type": "stat"
+      "type": "table"
     }
   ],
   "refresh": "10s",
@@ -2472,5 +2402,5 @@
   "timezone": "browser",
   "title": "Solar Monitoring Realtime",
   "uid": "6Lr7NE7Mk",
-  "version": 231
+  "version": 265
 }
