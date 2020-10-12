@@ -41,6 +41,14 @@ Access at http://localhost:3000/ and login with username: `admin`, password: `ad
 #### Configure InfluxDB data source
 Change query language to: `Flux`, enter organisaiton name and token.
 
+## Screenshots
+
+### Grafana
+![Grafana](/docs/grafana.png?raw=true)
+
+### Node-RED
+![Node-RED](/docs/nodered.png?raw=true)
+
 ## TODO
 
 Save nodered data elsewhere.
