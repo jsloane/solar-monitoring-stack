@@ -1266,7 +1266,7 @@
         "z": "52d8c030.9a05a",
         "d": true,
         "name": "Solar Edge Modbus",
-        "host": "se6000h",
+        "host": "hostname-or-IP",
         "port": "1502",
         "poll": "10000",
         "device": "se_inverter",
