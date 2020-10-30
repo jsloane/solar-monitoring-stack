@@ -4,7 +4,15 @@ The aim of this project is to simplify the setup and configuration of monitoring
 
 ## Prerequisites
 
+### Software ###
+
 Docker Compose - https://docs.docker.com/compose/install/
+
+### Inverter configuration ###
+
+Your inverter needs to be configured to have MODBUS TCP enabled.
+
+For SolarEdge Inverters, refer to https://www.solaredge.com/sites/default/files/sunspec-implementation-technical-note.pdf
 
 ## Usage
 
