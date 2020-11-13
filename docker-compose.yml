@@ -6,7 +6,7 @@ networks:
 services:
 
   influxdb:
-    image: quay.io/influxdb/influxdb:2.0.0-beta
+    image: quay.io/influxdb/influxdb:v2.0.1
     container_name: influxdb
     restart: unless-stopped
     ports:
