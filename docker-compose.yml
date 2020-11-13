@@ -10,11 +10,11 @@ services:
     container_name: influxdb
     restart: unless-stopped
     ports:
-      - 9999:9999
+      - 8086:8086
     networks:
       - sms-network
     volumes:
-      - ~/docker_sms_volumes/influxdb:/root/.influxdbv2
+      - ~/docker_sms_volumes/influxdbv2:/root/.influxdbv2
 
   node-red:
     #image: nodered/node-red:latest
