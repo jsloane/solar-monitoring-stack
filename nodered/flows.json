@@ -48,7 +48,7 @@
         "z": "",
         "name": "influxdb - solar-monitoring",
         "host": "influxdb",
-        "port": "9999",
+        "port": "8086",
         "tls": false
     }, {
         "id": "f2a0fc96.39186",
