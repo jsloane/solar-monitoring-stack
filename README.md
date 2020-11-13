@@ -28,7 +28,7 @@ To stop containers
 ## Configuration
 
 ### InfluxDB
-Access at http://localhost:9999/
+Access at http://localhost:8086/
 
 Create organisation and 2 buckets with names: `data-realtime` and `data-historical`.
 
