@@ -6,6 +6,8 @@ The aim of this project is to simplify the setup and configuration of monitoring
 
 ### Software ###
 
+Git (optional) - https://git-scm.com/downloads
+
 Docker Compose - https://docs.docker.com/compose/install/
 
 ### Inverter configuration ###
