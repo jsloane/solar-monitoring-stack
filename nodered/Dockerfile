@@ -16,6 +16,7 @@ COPY flows.json /data/flows.json
 # You should add extra nodes via your package.json file but you can also add them here:
 #WORKDIR /usr/src/node-red
 #RUN npm install node-red-node-smooth
+RUN npm install node-red-contrib-simplejs
 RUN npm install node-red-contrib-counter
 RUN npm install node-red-contrib-dsm
 RUN npm install node-red-contrib-influxdb
