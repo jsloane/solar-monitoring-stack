@@ -37,8 +37,12 @@ datasources:
   isDefault: true
   # <map> fields that will be converted to json and stored in json_data
   jsonData:
+    version: Flux
+    organization: solar-monitoring-stack
+    defaultBucket: data-realtime
   # <string> json object of data that will be encrypted.
   secureJsonData:
+    token: temporary-admin-token
   version: 1
   # <bool> allow users to edit datasources from the UI.
   editable: true

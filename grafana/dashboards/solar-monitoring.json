@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1602466219308,
+  "iteration": 1624535970406,
   "links": [],
   "panels": [
     {
@@ -27,9 +26,7 @@
       "datasource": null,
       "description": "",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": [
           {
             "matcher": {
@@ -88,7 +85,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -189,7 +186,20 @@
         "sort": 0,
         "value_type": "individual"
       },
-      "transformations": [],
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "_time",
+                "sunspec_inverter I_AC_Power_computed",
+                "_value"
+              ]
+            }
+          }
+        }
+      ],
       "transparent": true,
       "type": "graph",
       "xaxis": {
@@ -227,9 +237,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "mappings": [],
           "max": 6000,
           "min": 0,
@@ -272,9 +279,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -325,9 +333,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "mappings": [],
           "max": 5000,
           "min": 0,
@@ -366,9 +371,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": false,
+        "text": {}
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -419,9 +425,6 @@
       "description": "TODO Pending https://github.com/influxdata/flux/issues/1549",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "decimals": 2,
           "mappings": [],
           "thresholds": {
@@ -457,9 +460,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -510,9 +514,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -546,9 +547,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -598,7 +600,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -629,9 +630,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": false,
+        "text": {}
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -673,6 +675,19 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Consumption",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "_time",
+                "_value"
+              ]
+            }
+          }
+        }
+      ],
       "transparent": true,
       "type": "gauge"
     },
@@ -681,9 +696,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "mappings": [],
           "min": 0,
           "thresholds": {
@@ -721,9 +733,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": false,
+        "text": {}
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -778,23 +791,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 80
-              }
-            ]
-          },
           "unit": "watt"
         },
         "overrides": []
@@ -826,7 +822,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -942,9 +938,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -978,9 +971,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -1031,73 +1025,35 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "mappings": [
             {
-              "from": "",
-              "id": 0,
-              "text": "Off",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "text": "Sleeping",
-              "to": "",
-              "type": 1,
-              "value": "2"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Grid Monitoring",
-              "to": "",
-              "type": 1,
-              "value": "3"
-            },
-            {
-              "from": "",
-              "id": 3,
-              "text": "Producing",
-              "to": "",
-              "type": 1,
-              "value": "4"
-            },
-            {
-              "from": "",
-              "id": 4,
-              "text": "Throttled",
-              "to": "",
-              "type": 1,
-              "value": "5"
-            },
-            {
-              "from": "",
-              "id": 5,
-              "text": "Shutting down",
-              "to": "",
-              "type": 1,
-              "value": "6"
-            },
-            {
-              "from": "",
-              "id": 6,
-              "text": "Fault",
-              "to": "",
-              "type": 1,
-              "value": "7"
-            },
-            {
-              "from": "",
-              "id": 7,
-              "text": "Maintenance",
-              "to": "",
-              "type": 1,
-              "value": "8"
+              "options": {
+                "1": {
+                  "text": "Off"
+                },
+                "2": {
+                  "text": "Sleeping"
+                },
+                "3": {
+                  "text": "Grid Monitoring"
+                },
+                "4": {
+                  "text": "Producing"
+                },
+                "5": {
+                  "text": "Throttled"
+                },
+                "6": {
+                  "text": "Shutting down"
+                },
+                "7": {
+                  "text": "Fault"
+                },
+                "8": {
+                  "text": "Maintenance"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -1156,9 +1112,10 @@
           "fields": "/^I_Status$/",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -1208,9 +1165,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": null
-          },
           "decimals": 2,
           "mappings": [],
           "thresholds": {
@@ -1262,9 +1216,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -1315,17 +1270,8 @@
       "description": "TODO use calculation in flux\n\nhttps://www.influxdata.com/blog/influxdb-how-to-do-joins-math-across-measurements/",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 2,
-          "mappings": [
-            {
-              "from": "",
-              "id": 0,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "max": 100,
           "min": 0,
           "thresholds": {
@@ -1373,9 +1319,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -1429,9 +1376,7 @@
       "datasource": null,
       "description": "",
       "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
+        "defaults": {},
         "overrides": [
           {
             "matcher": {
@@ -1491,7 +1436,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1648,12 +1593,6 @@
       "dashes": false,
       "datasource": null,
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1685,7 +1624,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1780,12 +1719,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -1813,7 +1746,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1908,113 +1841,6 @@
       "dashes": false,
       "datasource": null,
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [
-            {
-              "from": "",
-              "id": 0,
-              "text": "Off",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "text": "Sleeping",
-              "to": "",
-              "type": 1,
-              "value": "2"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Grid Monitoring",
-              "to": "",
-              "type": 1,
-              "value": "3"
-            },
-            {
-              "from": "",
-              "id": 3,
-              "text": "Producing",
-              "to": "",
-              "type": 1,
-              "value": "4"
-            },
-            {
-              "from": "",
-              "id": 4,
-              "text": "Throttled",
-              "to": "",
-              "type": 1,
-              "value": "5"
-            },
-            {
-              "from": "",
-              "id": 5,
-              "text": "Shutting down",
-              "to": "",
-              "type": 1,
-              "value": "6"
-            },
-            {
-              "from": "",
-              "id": 6,
-              "text": "Fault",
-              "to": "",
-              "type": 1,
-              "value": "7"
-            },
-            {
-              "from": "",
-              "id": 7,
-              "text": "Maintenance",
-              "to": "",
-              "type": 1,
-              "value": "8"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "super-light-green",
-                "value": 1
-              },
-              {
-                "color": "dark-green",
-                "value": 4
-              },
-              {
-                "color": "yellow",
-                "value": 5
-              },
-              {
-                "color": "super-light-green",
-                "value": 6
-              },
-              {
-                "color": "red",
-                "value": 7
-              },
-              {
-                "color": "orange",
-                "value": 8
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -2042,7 +1868,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2138,72 +1964,38 @@
         "defaults": {
           "custom": {
             "align": null,
+            "displayMode": "auto",
             "filterable": false
           },
           "mappings": [
             {
-              "from": "",
-              "id": 0,
-              "text": "Off",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "text": "Sleeping",
-              "to": "",
-              "type": 1,
-              "value": "2"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Grid Monitoring",
-              "to": "",
-              "type": 1,
-              "value": "3"
-            },
-            {
-              "from": "",
-              "id": 3,
-              "text": "Producing",
-              "to": "",
-              "type": 1,
-              "value": "4"
-            },
-            {
-              "from": "",
-              "id": 4,
-              "text": "Throttled",
-              "to": "",
-              "type": 1,
-              "value": "5"
-            },
-            {
-              "from": "",
-              "id": 5,
-              "text": "Shutting down",
-              "to": "",
-              "type": 1,
-              "value": "6"
-            },
-            {
-              "from": "",
-              "id": 6,
-              "text": "Fault",
-              "to": "",
-              "type": 1,
-              "value": "7"
-            },
-            {
-              "from": "",
-              "id": 7,
-              "text": "Maintenance",
-              "to": "",
-              "type": 1,
-              "value": "8"
+              "options": {
+                "1": {
+                  "text": "Off"
+                },
+                "2": {
+                  "text": "Sleeping"
+                },
+                "3": {
+                  "text": "Grid Monitoring"
+                },
+                "4": {
+                  "text": "Producing"
+                },
+                "5": {
+                  "text": "Throttled"
+                },
+                "6": {
+                  "text": "Shutting down"
+                },
+                "7": {
+                  "text": "Fault"
+                },
+                "8": {
+                  "text": "Maintenance"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -2260,7 +2052,7 @@
           }
         ]
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "8.0.3",
       "targets": [
         {
           "groupBy": [
@@ -2315,67 +2107,37 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "151.5",
-          "value": "151.5"
-        },
+        "description": null,
+        "error": null,
         "hide": 2,
         "label": "Daily supply cost",
         "name": "dailycost",
-        "options": [
-          {
-            "selected": true,
-            "text": "151.5",
-            "value": "151.5"
-          }
-        ],
         "query": "151.5",
         "skipUrlSync": false,
         "type": "constant"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "30.59",
-          "value": "30.59"
-        },
+        "description": null,
+        "error": null,
         "hide": 2,
         "label": "Import Tariff",
         "name": "tariffimport",
-        "options": [
-          {
-            "selected": true,
-            "text": "30.59",
-            "value": "30.59"
-          }
-        ],
         "query": "30.59",
         "skipUrlSync": false,
         "type": "constant"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "21.0",
-          "value": "21.0"
-        },
+        "description": null,
+        "error": null,
         "hide": 2,
         "label": "Export Tariff",
         "name": "tariffexport",
-        "options": [
-          {
-            "selected": true,
-            "text": "21.0",
-            "value": "21.0"
-          }
-        ],
         "query": "21.0",
         "skipUrlSync": false,
         "type": "constant"
@@ -2402,5 +2164,5 @@
   "timezone": "browser",
   "title": "Solar Monitoring Realtime",
   "uid": "6Lr7NE7Mk",
-  "version": 265
+  "version": 1
 }

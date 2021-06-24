@@ -6,7 +6,7 @@ networks:
 services:
 
   influxdb:
-    image: quay.io/influxdb/influxdb:v2.0.1
+    image: influxdb:2.0
     container_name: influxdb
     restart: unless-stopped
     ports:
@@ -15,6 +15,13 @@ services:
       - sms-network
     volumes:
       - ~/docker_sms_volumes/influxdbv2:/root/.influxdbv2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password
+      - DOCKER_INFLUXDB_INIT_ORG=solar-monitoring-stack
+      - DOCKER_INFLUXDB_INIT_BUCKET=data-realtime
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=temporary-admin-token
 
   node-red:
     #image: nodered/node-red:latest
@@ -32,8 +39,7 @@ services:
     volumes:
     #  - ~/docker_sms_volumes/nodered:/data
       - ./nodered:/data
-    environment:
-      - TZ=Australia/Sydney
+    #environment:
     #  - FLOWS=my_flows.json
 
   grafana:

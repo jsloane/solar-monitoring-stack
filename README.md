@@ -30,26 +30,19 @@ To stop containers
 ## Configuration
 
 ### InfluxDB
-Access at http://localhost:8086/
+InfluxDB is preconfigured with username `admin` and password `password` and a temporary token, accessed at http://localhost:8086/
 
-Create organisation and 2 buckets with names: `data-realtime` and `data-historical`.
-
-Create or use the existing token for Node Red & Grafana configuration.
+It's recommended to change this password, and create new tokens for Grafana and Node Red.
 
 ### Node Red
 Access at http://localhost:8880/
 #### Configure SunSpec Modbus node
 Set 'Solar Edge MODBUS' hostname/IP address and port, and enable flow.
 
-Set InfluxDB Token and Organisation on InfluxDB flows.
-
 Deploy changes.
 
 ### Grafana
 Access at http://localhost:3000/ and login with username: `admin`, password: `admin`.
-
-#### Configure InfluxDB data source
-Change query language to: `Flux`, enter organisaiton name and token.
 
 ## Screenshots
 
