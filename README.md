@@ -55,7 +55,3 @@ Access at http://localhost:3000/ and login with username: `admin`, password: `ad
 ## TODO
 
 Save nodered data elsewhere.
-
-Preconfigure influxdb - pending https://github.com/influxdata/influxdb/pull/17946
-
-Preconfigure grafana datasource
